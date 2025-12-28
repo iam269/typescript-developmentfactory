@@ -23,14 +23,42 @@ function displayError(): never {
     throw new Error("something bad happened");
 }
 
-const something = displayError();
-console.log(something);
 
-function displayName(name: string){
-    console.log(name);
+function displayName(firstName: string, lastName: string): string{
+    const fullName = `${firstName} ${lastName}`;
+    console.log(fullName);
+    return fullName;
 }
 
 const personName: any = null;
 
-displayName("Aurel");
-displayName(null);
+displayName("Aurel", "Bogdan");
+
+let myFunc: (firstName: string, lastName: string) => string;
+
+myFunc = displayName;
+
+myFunc("Aurel", "Bogdan");  
+
+type Person = {
+    firstName?: string | undefined;
+    lastName?: string;
+    age?: number;
+}
+
+const person1: Person = {
+    firstName: "aurel",
+    lastName: "bogdan",
+    age: 17
+};
+const person2: Person = {
+    firstName: undefined
+};
+
+function displayPerson(person: Person) {
+    console.log(`${person.firstName} ${person.lastName} age: ${person.age}`);
+}
+
+displayPerson(person1);
+
+const input: number | string = "Ion";

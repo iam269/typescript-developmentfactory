@@ -41,7 +41,7 @@ myFunc = displayName;
 myFunc("Aurel", "Bogdan");  
 
 type Person = {
-    firstName?: string | undefined;
+    firstName: string | undefined;
     lastName?: string;
     age?: number;
 }
@@ -61,4 +61,133 @@ function displayPerson(person: Person) {
 
 displayPerson(person1);
 
-const input: number | string = "Ion";
+const input: any = "13";
+
+function print(input: number | string) {
+    if (typeof input === "string") {
+        console.log(input.toLowerCase());
+    }else {
+        console.log(input);
+    }
+    
+}
+
+print(input);
+
+interface Company {
+    name: string;
+    employees: number;
+}
+
+interface InternationalCompany extends Company {
+    country: string;
+}
+
+function getCompany(): InternationalCompany {
+    const myCompany: InternationalCompany = {
+    name: "Tech Corp",
+    employees: 500,
+    country: "USA"
+    };
+    return myCompany;
+}
+
+const myCompany = getCompany();
+
+console.log(myCompany.country);
+
+const myFirstName: number = "Bogdan" as unknown as number;
+
+type something = "something";
+
+const someValue: something = "something";
+
+function displaySomething(input: something) {
+    console.log(input);
+}
+
+displaySomething("something");
+
+function configure(x: "one", y: "two") {
+    // configure something
+}
+
+const configuration = {
+    one: "one",
+    two: "two"
+};
+
+//configure(configuration.one, configuration.two); will show error
+configure(configuration.one as "one", configuration.two as "two");
+
+
+const GASOLINE = "Gasoline";
+const DIESEL = "Diesel";
+const LPG = "LPG";
+
+enum Fuel {
+    GASOLINE = "Gasoline", DIESEL = "Diesel", LPG = "LPG"
+}
+
+function startEngine(fuel: Fuel){
+    if(fuel === Fuel.LPG){
+        throw Error("Engine doesn't work with LPG");
+    }
+    console.log("Engine has been started with " + fuel);
+}
+
+startEngine(Fuel.GASOLINE);
+startEngine(Fuel.DIESEL);
+//startEngine(Fuel.LPG); will show error
+
+class Programmer <T extends Language>{
+    private language: T;
+
+    constructor(language: T) {
+        this.language = language;
+    }
+
+    canCode(language: T): boolean {
+        if(language.name === "C#"){
+            console.log("Programmer seems to be a backend developer");
+        }
+        if(language.name === "JavaScript"){
+            console.log("Programmer seems to be a frontend developer");
+        }
+        return language === this.language;
+    }
+}
+/*
+const programmer = new Programmer<string>("TypeScript");
+
+console.log("Programmer can code in TypeScript: " + programmer.canCode("TypeScript"));
+
+enum Language {
+    Csharp, Javascript, TypeScript, Python
+}
+
+const alex = new Programmer<Language>(Language.Javascript);
+console.log("Alex can code in JavaScript: " + alex.canCode(Language.Javascript));
+*/
+
+type Language = {
+    name: string;
+}
+
+const csharp: Language ={
+    name: "C#"
+}
+
+const js: Language ={
+    name: "JavaScript"
+}
+
+const ts: Language ={
+    name: "TypeScript"
+}
+
+const aurel = new Programmer<Language>(csharp);
+console.log("Aurel can code in C#: " + aurel.canCode(csharp));
+
+const alex = new Programmer<Language>(js);
+console.log("Alex can code in JavaScript: " + alex.canCode(js));
